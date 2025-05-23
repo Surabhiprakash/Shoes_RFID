@@ -1409,6 +1409,7 @@ public class ReadFragment extends KeyDwonFragment {
             knownEPCs.add(product.leftEPC);
             knownEPCs.add(product.rightEPC);
         }
+        Log.d("compareTags", "knownEPCs: " + knownEPCs);
 
         Set<String> scannedSet = new HashSet<>();
         for (String tag : scan) {
@@ -1416,6 +1417,8 @@ public class ReadFragment extends KeyDwonFragment {
                 scannedSet.add(tag);
             }
         }
+
+        Log.d("compareTags", "scannedSet: " + scannedSet);
 
         missingtags.clear();
         missingtagsobj.clear();
@@ -1432,6 +1435,7 @@ public class ReadFragment extends KeyDwonFragment {
 
             if (isBoxFound && isLeftFound && isRightFound) {
                 foundCount++;
+                Log.d("compareTags", "foundCount: " + foundCount);
             } else {
                 ProductStatus status = new ProductStatus(
                         product.productTitle, isBoxFound, isLeftFound, isRightFound
@@ -1444,8 +1448,10 @@ public class ReadFragment extends KeyDwonFragment {
                     missingtagsobj.add(status);
                     Log.d("compareTags", "➕ Added to missingtagsobj: " + product.productTitle);
                     missingCount++;
+                    Log.d("compareTags", "missingCount: " + missingCount);
                 } else {
                     partialCount++;
+                    Log.d("compareTags", "partialCount: " + partialCount);
                 }
             }
         }
