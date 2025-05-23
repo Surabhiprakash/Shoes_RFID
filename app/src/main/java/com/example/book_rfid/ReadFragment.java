@@ -731,8 +731,8 @@ public class ReadFragment extends KeyDwonFragment {
             mContext.bookinfo.setCount(total);
             mContext.bookinfo.setTagNumber(adapter.getCount());
 
-            mFoundTags.setText(String.valueOf(scan.size()));
-            mPartialTags.setText(String.valueOf(unknown.size()));
+//            mFoundTags.setText(String.valueOf(scan.size()));
+//            mPartialTags.setText(String.valueOf(unknown.size()));
         }
     }
 
