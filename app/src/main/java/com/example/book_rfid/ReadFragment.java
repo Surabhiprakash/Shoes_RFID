@@ -64,6 +64,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -1343,8 +1344,8 @@ public class ReadFragment extends KeyDwonFragment {
 
                 Log.d("SOP", "Processing row " + i + "...");
 
-                String tag = row.getCell(0, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
-                String name = row.getCell(1, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue().trim();
+                String tag = getCellAsString(row.getCell(0));
+                String name = getCellAsString(row.getCell(1));
                 String boxEPC = getCellAsString(row.getCell(2));
                 String leftEPC = getCellAsString(row.getCell(3));
                 String rightEPC = getCellAsString(row.getCell(4));
@@ -1382,12 +1383,20 @@ public class ReadFragment extends KeyDwonFragment {
         switch (cellType) {
             case STRING:
                 return cell.getStringCellValue().trim();
+
             case NUMERIC:
-                return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString().trim();
+                if (DateUtil.isCellDateFormatted(cell)) {
+                    return new SimpleDateFormat("yyyy-MM-dd").format(cell.getDateCellValue());
+                } else {
+                    return BigDecimal.valueOf(cell.getNumericCellValue()).toPlainString().trim();
+                }
+
             case BOOLEAN:
                 return String.valueOf(cell.getBooleanCellValue()).trim();
+
             case FORMULA:
-                return cell.getCellFormula().trim();
+                return cell.getCellFormula().trim(); // Optional: evaluate instead of return formula
+
             case BLANK:
             default:
                 return "";
