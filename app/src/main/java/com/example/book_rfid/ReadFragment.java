@@ -116,6 +116,7 @@ public class ReadFragment extends KeyDwonFragment {
      static List<String> excelTags = new ArrayList<>();
     private List<String> tempDatas = new ArrayList<>();
     public static List<String> scan = new ArrayList<>();
+
     public static List<String> unknown=new ArrayList<>();
     public static HashMap<String, ProductStatus> scannedStatusMap = new HashMap<>();
     List<ProductStatus> productTagList = new ArrayList<>();
